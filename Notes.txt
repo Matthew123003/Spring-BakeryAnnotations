@@ -1,0 +1,48 @@
+@RestController: This annotation indicates that the class defines a
+RESTful web service. It's a convenience annotation that combines @Controller
+ and @ResponseBody, meaning that methods in this class return data that is
+  serialized directly into the HTTP response body.
+BakerController: This is the name of the controller class.
+private BakerService service;: This declares a private field service of type
+ BakerService. This field will be autowired by Spring with an instance of BakerService.
+@Autowired: This annotation is used to automatically wire the BakerService bean
+ into the constructor of BakerController.
+public BakerController(BakerService service): This is the constructor of
+BakerController, which takes an instance of BakerService as a parameter.
+When Spring initializes the controller, it injects an instance of BakerService
+ into this constructor.
+@GetMapping("/bakers"): This annotation maps HTTP GET requests for the /bakers
+endpoint to the index() method.
+public ResponseEntity<Iterable<Baker>> index(): This method handles HTTP GET
+requests for the /bakers endpoint. It returns a ResponseEntity containing an
+Iterable of Baker objects, which represents a collection of bakers.
+new ResponseEntity<>(service.index(), HttpStatus.OK): This creates a new
+ResponseEntity with the data returned by service.index() as the body and the
+HTTP status code OK (200).
+@GetMapping("/baker/{id}"): This annotation maps HTTP GET requests for the
+/baker/{id} endpoint to the show() method. The {id} part of the path is a placeholder
+ for the ID of the specific baker.
+public ResponseEntity<Baker> show(@PathVariable Long id): This method handles HTTP
+GET requests for the /baker/{id} endpoint. It takes the id path variable as a
+parameter and returns a ResponseEntity containing a Baker object with the specified ID.
+@PostMapping("/bakers"): This annotation maps HTTP POST requests for the /bakers
+endpoint to the create() method.
+public ResponseEntity<Baker> create(@RequestBody Baker baker): This method
+handles HTTP POST requests for the /bakers endpoint. It takes a Baker object as
+ a request body, creates a new baker using the service.create() method, and returns
+  a ResponseEntity containing the created Baker object with the HTTP status code
+  CREATED (201).
+@PutMapping("/baker/{id}"): This annotation maps HTTP PUT requests for the /baker/{id}
+ endpoint to the update() method.
+public ResponseEntity<Baker> update(@PathVariable Long id, @RequestBody Baker baker):
+ This method handles HTTP PUT requests for the /baker/{id} endpoint. It takes the id
+  path variable and a Baker object as parameters, updates the baker with the specified
+   ID using the service.update() method, and returns a ResponseEntity containing the
+   updated Baker object with the HTTP status code OK (200).
+@DeleteMapping("/baker/{id}"): This annotation maps HTTP DELETE requests for the
+/baker/{id} endpoint to the destroy() method.
+public ResponseEntity<Boolean> destroy(@PathVariable Long id): This method handles
+HTTP DELETE requests for the /baker/{id} endpoint. It takes the id path variable as
+ a parameter, deletes the baker with the specified ID using the service.delete() method,
+  and returns a ResponseEntity containing a Boolean indicating whether the deletion was
+   successful, along with the HTTP status code OK (200).
