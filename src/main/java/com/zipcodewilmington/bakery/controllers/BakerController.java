@@ -34,7 +34,6 @@ public class BakerController {
     }
     @DeleteMapping("/baker/{id}")
     public ResponseEntity<Boolean> destroy(@PathVariable Long id) {
-
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 }
