@@ -5,6 +5,8 @@ import com.zipcodewilmington.bakery.repositories.BakerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class BakerService {
     private BakerRepository repository;
@@ -26,7 +28,8 @@ public class BakerService {
     }
 
     public Baker update(Long id, Baker newBakerData) {
-        Baker originalBaker = repository.findById(id).get();
+        Optional<Baker> oBaker = repository.findById(id);
+        Baker originalBaker = oBaker.get();
         originalBaker.setName(newBakerData.getName());
         originalBaker.setSpecialty(newBakerData.getSpecialty());
         return repository.save(originalBaker);
