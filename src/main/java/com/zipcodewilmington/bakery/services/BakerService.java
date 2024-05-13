@@ -20,7 +20,13 @@ public class BakerService {
     }
 
     public Baker show(Long id) {
-        return repository.findById(id).get();
+        Optional<Baker> optionalBaker = repository.findById(id);
+        //Guard clause
+        if(optionalBaker.isEmpty()){
+            return null;
+        }
+        Baker baker = optionalBaker.get();
+        return baker;
     }
 
     public Baker create(Baker baker) {
@@ -28,8 +34,12 @@ public class BakerService {
     }
 
     public Baker update(Long id, Baker newBakerData) {
-        Optional<Baker> oBaker = repository.findById(id);
-        Baker originalBaker = oBaker.get();
+        Optional<Baker> optionalBaker = repository.findById(id);
+        //Guard clause
+        if(optionalBaker.isEmpty()){
+            return null;
+        }
+        Baker originalBaker = optionalBaker.get();
         originalBaker.setName(newBakerData.getName());
         originalBaker.setSpecialty(newBakerData.getSpecialty());
         return repository.save(originalBaker);
